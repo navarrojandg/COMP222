@@ -34,7 +34,7 @@ int getExponent(unsigned x) {
     // 0 11111111 00000000000000000000000
     // 0x7F800000
     // mask to extract bits 23-30
-    
+
     unsigned exponent = x & 0x7F800000; // isolate the exponent bits;
     int acc = 0;
     int j = 1;
@@ -83,7 +83,8 @@ unsigned getBinexp(double x) {
 unsigned getIEEE(double x) {
     unsigned acc = 0x0;
     if (x < 0) { acc += (1 << 31); }; // sign bit;
-    acc += getBinexp(x);
+    x = fabs(x); // we use fabs because we already dealt with the sign bit;
+    acc += getBinexp(x); 
     acc += getBinfrac(x);
     return acc;
 };
